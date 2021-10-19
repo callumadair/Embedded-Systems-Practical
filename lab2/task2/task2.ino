@@ -19,6 +19,7 @@ String mv_str_1;
 String mv_str_2;
 String size_str_1;
 String size_str_2;
+String run_json;
 
 void setup() {
     Serial.begin(115200);
@@ -46,10 +47,9 @@ void setup() {
     ddev.send(mv_str_2);
     ddev.send(size_str_2);
     
-    
+    run_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"RUN\" }";
 }
 
-String json_str;
 
 void loop() {
 
