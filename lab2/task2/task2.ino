@@ -25,9 +25,9 @@ void setup() {
     Serial.begin(115200);
     ddev.connect();
 
-    timer_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"TIMER_CFG\" }";
-    val_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"TIMER_VAL\", \"value\":500 }";
-    load_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"LOAD\" }";
+    timer_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"TIMER_CFG\" }";
+    val_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"TIMER_VAL\", \"value\":500 }";
+    load_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"LOAD\" }";
 
     ddev.send(timer_json);
     ddev.send(val_json);
@@ -51,7 +51,7 @@ void setup() {
     ddev.send(mv_str_2);
     ddev.send(size_str_2);
     
-    run_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"RUN\" }";
+    run_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"RUN\" }";
 
     ddev.send(run_json);
 }
