@@ -1,17 +1,14 @@
 #include "dotDevice.h"
 
 
-const char* ssid = "<YOUR WIFI SSID>";
-const char* password = "<YOUR WIFI PASSWORD>";
+const char* ssid = "VM1419400";
+const char* password = "hrjx6wqJtqkh";
 const char* server = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234"; 
 
-const char* gid = "<YOUR GROUP GID>";
+const char* gid = "EEGhyIgq";
 
 dotDevice ddev(ssid, password, server);
 
-void setup() {
-    Serial.begin(115200);
-    ddev.connect();
 
 String json_str_1;
 String json_str_2;
@@ -20,6 +17,10 @@ String mv_str_1;
 String mv_str_2;
 String size_str_1;
 String size_str_2;
+
+void setup() {
+    Serial.begin(115200);
+    ddev.connect();
 
     delay(500);
 
