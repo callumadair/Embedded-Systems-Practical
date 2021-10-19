@@ -26,7 +26,7 @@ void setup() {
     Serial.begin(115200);
     ddev.connect();
 
-    halt_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"HALT\" }";
+    halt_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"HALT\" }";
     ddev.send(halt_json);
 
     timer_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"TIMER_CFG\" }";
