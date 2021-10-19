@@ -37,7 +37,7 @@ void setup() {
     json_str_2 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"COLOUR\", \"colour\": \"#0317F9\" }";
     mv_str_1 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"ADJUST_XPOS\", \"dx\": 30 }";
     size_str_1 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"SIZE\", \"size\": 20 }";
-    //Serial.println(json_str);
+
     ddev.send(json_str_1);
     ddev.send(json_str_2);
     ddev.send(mv_str_1);
@@ -52,7 +52,6 @@ void setup() {
     ddev.send(size_str_2);
     
     run_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"RUN\" }";
-
     ddev.send(run_json);
 }
 
