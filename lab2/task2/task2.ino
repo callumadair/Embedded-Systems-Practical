@@ -9,7 +9,9 @@ const char* gid = "EEGhyIgq";
 
 dotDevice ddev(ssid, password, server);
 
-
+String timer_json;
+String val_json;
+String load_json;
 String json_str_1;
 String json_str_2;
 String json_str_3;
@@ -22,7 +24,9 @@ void setup() {
     Serial.begin(115200);
     ddev.connect();
 
-    delay(500);
+    timer_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"TIMER_CFG\" }";
+    val_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"TIMER_VAL\", \"value\":500 }";
+    load_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"LOAD\" }";
 
     json_str_1 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"SAY\", \"text\": \"Shut up pls!\" }";
     json_str_2 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"COLOUR\", \"colour\": \"#0317F9\" }";
@@ -34,13 +38,15 @@ void setup() {
     ddev.send(mv_str_1);
     ddev.send(size_str_1);
 
-    delay(500);
+    
     json_str_3 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"COLOUR\", \"colour\": \"#F90D03\" }";
-    ddev.send(json_str_3);
     mv_str_2 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"ADJUST_XPOS\", \"dx\": -30 }";
-    ddev.send(mv_str_2);
     size_str_2 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"SIZE\", \"size\": 10 }";
+    ddev.send(json_str_3);
+    ddev.send(mv_str_2);
     ddev.send(size_str_2);
+    
+    
 }
 
 String json_str;
