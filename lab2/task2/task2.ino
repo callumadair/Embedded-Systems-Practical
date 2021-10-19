@@ -29,6 +29,10 @@ void setup() {
     val_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"TIMER_VAL\", \"value\":500 }";
     load_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"LOAD\" }";
 
+    ddev.send(timer_json);
+    ddev.send(val_json);
+    ddev.send(load_json);
+
     json_str_1 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"SAY\", \"text\": \"Shut up pls!\" }";
     json_str_2 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"COLOUR\", \"colour\": \"#0317F9\" }";
     mv_str_1 = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"ADJUST_XPOS\", \"dx\": 30 }";
@@ -48,6 +52,8 @@ void setup() {
     ddev.send(size_str_2);
     
     run_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"RUN\" }";
+
+    ddev.send(run_json);
 }
 
 
