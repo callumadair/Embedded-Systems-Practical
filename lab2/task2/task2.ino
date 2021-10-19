@@ -9,6 +9,7 @@ const char* gid = "EEGhyIgq";
 
 dotDevice ddev(ssid, password, server);
 
+String halt_json;
 String timer_json;
 String val_json;
 String load_json;
@@ -24,6 +25,9 @@ String run_json;
 void setup() {
     Serial.begin(115200);
     ddev.connect();
+
+    halt_json = "{ \"device\" : \""String(gid)+"\", \"cmd\" : \"HALT\" }";
+    ddev.send(halt_json);
 
     timer_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"TIMER_CFG\" }";
     val_json = "{ \"device\" : \""+String(gid)+"\", \"cmd\" : \"TIMER_VAL\", \"value\":500 }";
