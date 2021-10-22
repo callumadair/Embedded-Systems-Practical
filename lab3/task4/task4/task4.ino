@@ -17,18 +17,18 @@ unsigned int*gpio_w1tc_reg1 = (unsigned int*)(0x3FF44018);
 
 void setup() {
     gpio_initial_values = *gpio_enable_reg; 
-    gpio_new_values = gpio_initial_values | (1 << 18) | (1 << 5) | (1 << 22) | (1 << 21) | (1 << 32);
+    gpio_new_values = gpio_initial_values | (1 << 18) | (1 << 5) | (1 << 22) | (1 << 21);
     *gpio_enable_reg = gpio_new_values;
 
     gpio_initial_values1 = *gpio_enable1_reg; 
-    gpio_new_values1 = gpio_initial_values1 | (1 << 33);
+    gpio_new_values1 = gpio_initial_values1 | (1 << 32) | (1 << 33);
     *gpio_enable1_reg = gpio_new_values1;
 }
 
 void loop() {
-    *gpio_w1ts_reg = (1 << 18) | (1 << 5) | (1 << 22) | (1 << 21) | (1 << 32) | (1 << 33);
-    *gpio_w1tc_reg = (1 << 18) | (1 << 5) | (1 << 22) | (1 << 21) | (1 << 32) | (1 << 33);
+    *gpio_w1ts_reg = (1 << 18) | (1 << 5) | (1 << 22) | (1 << 21);
+    *gpio_w1tc_reg = (1 << 18) | (1 << 5) | (1 << 22) | (1 << 21);
 
-    *gpio_w1ts_reg1 = (1 << 33);
-    *gpio_w1tc_reg1 = (1 << 33);
+    *gpio_w1ts_reg1 = (1 << 32) | (1 << 33);
+    *gpio_w1tc_reg1 = (1 << 32) | (1 << 33);
 }
