@@ -10,11 +10,11 @@ unsigned int*gpio_w1tc_reg = (unsigned int*)(0x3FF4400C);
 
 void setup() {
     gpio_initial_values = *gpio_enable_reg; 
-    gpio_new_values = gpio_initial_values | (1 << 5);
+    gpio_new_values = gpio_initial_values | (1 << 18);
     *gpio_enable_reg = gpio_new_values;
 }
 
 void loop() {
-    *gpio_w1ts_reg = (1<<5);
-    *gpio_w1tc_reg = (1<<5);
+    *gpio_w1ts_reg = (1<<18);
+    *gpio_w1tc_reg = (1<<18);
 }
