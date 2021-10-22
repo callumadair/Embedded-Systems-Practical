@@ -9,11 +9,11 @@ unsigned int gpio_new_values1;
 
 // W1TS GPIO register
 unsigned int*gpio_w1ts_reg = (unsigned int*)(0x3FF44008);
-unsigned int*gpio_w1ts_reg1 = (unsigned int*)(0x3FF44030);
+unsigned int*gpio_w1ts_reg1 = (unsigned int*)(0x3FF44014);
 
 // W1TC GPIO register
 unsigned int*gpio_w1tc_reg = (unsigned int*)(0x3FF4400C);
-unsigned int*gpio_w1tc_reg1 = (unsigned int*)(0x3FF44034);
+unsigned int*gpio_w1tc_reg1 = (unsigned int*)(0x3FF44018);
 
 void setup() {
     gpio_initial_values = *gpio_enable_reg; 
