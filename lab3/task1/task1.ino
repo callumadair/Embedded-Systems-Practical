@@ -7,5 +7,4 @@ void loop() {
   // put your main code here, to run repeatedly:
   digitalWrite(18, LOW);
   digitalWrite(18, HIGH);
-  
 }
