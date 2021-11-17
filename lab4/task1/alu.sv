@@ -12,7 +12,12 @@ module alu (
 	output logic [7:0] q
 );
 // -------------------------------
+always_comb begin
 
+	case(select)
+		
+
+end
 
 
 endmodule
