@@ -12,19 +12,18 @@ module alu (
 	output logic [7:0] q
 );
 // -------------------------------
-	
+
 always_comb begin
 	case(op)
 		3'd0: q = a + b;
 		3'd1: q = a - b;
-		3'd2: q = a >> b;
-		3'd3: q = a << b;
+		3'd2: q = a >> 1;
+		3'd3: q = a << 1;
 		3'd4: q = a & b;
 		3'd5: q = a | b;
 		3'd6: q = 0;
 		3'd7: q = 0;
 	endcase
 end
-
 endmodule
 
