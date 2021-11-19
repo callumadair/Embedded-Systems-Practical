@@ -18,7 +18,10 @@ void setupTimer(uint16_t divval) {
     // ---------------------------------
     // Sets the EN bit
     // Sets the INCREASE bit
+    *timg0_t0config_reg = *timg0_t0config_reg | (1 << 31) | (1 << 30); 
+    
     // Sets the DIVIDER bits (prescale value) with divval
+    *timg0_t0config_reg = *timg0_t0config_reg | (divval << 13);
 }
 
 /*
@@ -31,6 +34,8 @@ void resetTimer() {
     // ---------------------------------
     // disable the timer
     // load 0 into the timer
+    *timg0_t0config_reg = *timg0_t0config_reg | (0 << 31);
+    *timg0_t0load_reg = (0 << 0);
 }
 
 
@@ -44,6 +49,9 @@ uint64_t readTimer() {
     // ADD YOUR IMPLEMENTATION HERE
     // ---------------------------------
     // read the 64-bit timer value here and assign it into val
+    *timg0_t0update_reg = (0 << 1);
+    val = (*timg0_t0hi_reg << 32) | *timg0_t0lo_reg;
+    
     return val;
 }
 
