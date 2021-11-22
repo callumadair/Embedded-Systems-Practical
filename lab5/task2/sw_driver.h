@@ -43,6 +43,8 @@ void resetTimer() {
 uint64_t readTimer() {
     uint64_t t;
     // using readReg and regWrite implement the function to read the data from the hardware
+    regWrite(timg0_t0update_reg, regRead(1) | (0 << 1));
+    t = regRead((regRead(timg0_t0load_hi_reg) << 32) | regRead(timg0_t0lo_reg));
     return t;
 }
 // --------------- DONE -------------------------
