@@ -27,6 +27,7 @@ const uint32_t timg0_t0load_reg = 0x3FF5F020;
 // ------ IMPLEMENT THE FOLLOWING ----------------
 void setupTimer(uint16_t divval) {
     // Implement the timerSetup function using regWrite 
+    regWrite(divval, regRead(1) | 1 << 0)
 }
 
 void resetTimer() {
