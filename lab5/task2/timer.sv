@@ -29,8 +29,13 @@ logic [31:0] loadhi_reg;
 // Signals
 logic load_triggered;
 logic update_triggered;
+logic prescaler_enabled;
+logic prescaler_rst;
+
+logic [2:0] divval;
 
 logic [63:0] counter;
+logic [15:0] prescale_counter;
 
 // Write interface logic
 always_ff @(posedge clk) begin
@@ -38,6 +43,7 @@ always_ff @(posedge clk) begin
         // default
         load_triggered <= 1'b0;
         update_triggered <= 1'b0;
+	prescaler_enabled <= 1'b0;
 
         if ((addr_in[31:16] == 16'h3FF5) & wr_in) begin
                 case (addr_in[15:0])
@@ -110,7 +116,7 @@ end
 
 // Add or subtract
 always_ff @(posedge clk) begin
-	if (config_reg[31] == 1) beginwere rejected because the tip 
+	if (prescaler_enabled == 1) begin
 		if (config_reg[30] == 1) begin
 			counter <= counter + 64'd1;
 		end else if (config_reg[30] == 0) begin
@@ -130,6 +136,42 @@ always_ff @(posedge clk) begin
                 lo_reg <= counter[31:0];
         end
 end
+
+// prescaler module
+always_ff@(posedge clk) begin
+	
+	prescale_counter <= prescale_counter + 16'd1; 
+	case (config_reg[28:13])
+		16'd0: begin
+			divval <= 16'd0;
+		end
+		16'd1: begin
+			divval <= 16'd1;
+		end
+		16'd2: begin
+			divval <= 16'd1;
+		end
+		default:
+			divval <= 16'd1;
+
+	endcase
+
+	if (config_reg[31] == 1) begin
+		if (config_reg[28:13] == prescale_counter) begin
+			prescaler_enabled <= 1'b1;
+			prescaler_rst <= 1'b1;
+		end 
+		
+	end
+
+	if (prescaler_rst) begin
+		prescale_counter <= 16'd0;
+	end
+
+
+end
+
+
 
 endmodule
 // ----- End of MMIO interfacing module -----
