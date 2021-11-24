@@ -69,6 +69,7 @@ always_ff @(posedge clk) begin
                 endcase
         end
 
+
         if (rst) begin
                 config_reg <= 32'd0;
         end
@@ -85,14 +86,6 @@ always_ff @(posedge clk) begin
                      	// Reading the config register
                         16'hF000: begin 
                                 data_out <= config_reg;
-                        end
-
-                        16'hF004: begin
-                                data_out <= lo_reg;
-                        end
-
-                        16'hF008: begin
-                                data_out <= hi_reg;
                         end
 
                         // default -- do nothing
