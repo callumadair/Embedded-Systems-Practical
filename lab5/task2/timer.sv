@@ -87,6 +87,15 @@ always_ff @(posedge clk) begin
                                 data_out <= config_reg;
                         end
 
+			16'hF004: begin
+				data_out <= lo_reg;
+			end
+
+			16'hF008: begin
+			       data_out <= hi_reg;
+		       	end	       
+
+
                         // default -- do nothing
                         default: begin
 
