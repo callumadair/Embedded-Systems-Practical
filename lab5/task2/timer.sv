@@ -40,7 +40,6 @@ always_ff @(posedge clk) begin
                         // config register write
                         16'hF000: config_reg <= data_in;
 
-
                         // Trigger a load
                         16'hF020: begin
                                 load_triggered <= 1'b1;               
@@ -89,10 +88,10 @@ end
 always_ff @(posedge clk) begin
 	if(config_reg[31] == 1)
 		if(config_reg[30] == 1)
-			data_out = data_out <<  1;
+			data_out += 1;
 		end	
-		if(config_reg[30] == 0)
-			data_out = data_out << 0;
+		else if(config_reg[30] == 0)
+			data_out -= 1;
 		end	
 	end
 end
