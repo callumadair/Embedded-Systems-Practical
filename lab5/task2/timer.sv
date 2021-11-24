@@ -96,7 +96,7 @@ always_ff @(posedge clk) begin
         end
 
         if (rst) begin
-                data_out <=32'd0;
+                data_out <= 32'd0;
                 rd_valid_out <= 1'b0;
         end
 end
