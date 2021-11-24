@@ -40,6 +40,7 @@ always_ff @(posedge clk) begin
                         // config register write
                         16'hF000: config_reg <= data_in;
 
+
                         // Trigger a load
                         16'hF020: begin
                                 load_triggered <= 1'b1;               
@@ -66,7 +67,7 @@ always_ff @(posedge clk) begin
         if ((addr_in[31:16] == 16'h3FF5) & rd_in) begin
                 case(addr_in[15:0])
 
-                        // Reading the config register
+                     	 // Reading the config register
                         16'hF000: begin 
                                 data_out <= config_reg;
                         end
@@ -84,7 +85,17 @@ always_ff @(posedge clk) begin
         end
 end
 
-
+//add or subtract
+always_ff @(posedge clk) begin
+	if(config_reg[31] == 1)
+		if(config_reg[30] == 1)
+			data_out = data_out <<  1;
+		end	
+		if(config_reg[30] == 0)
+			data_out = data_out << 0;
+		end	
+	end
+end
 
 endmodule
 // ----- End of MMIO interfacing module -----
