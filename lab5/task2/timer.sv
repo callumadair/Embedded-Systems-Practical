@@ -27,6 +27,7 @@ logic [31:0] loadlo_reg;
 logic [31:0] loadhi_reg;
 
 logic load_triggered;
+logic update_triggered;
 
 logic [63:0] counter;
 
@@ -35,10 +36,10 @@ always_ff @(posedge clk) begin
 
         // default
         load_triggered <= 1'b0;
+        update_triggered <= 1'b0;
 
         if ((addr_in[31:16] == 16'h3FF5) & wr_in) begin
                 case(addr_in[15:0])
-
                         // config register write
                         16'hF000: config_reg <= data_in;
 
@@ -67,8 +68,7 @@ always_ff @(posedge clk) begin
 
         if ((addr_in[31:16] == 16'h3FF5) & rd_in) begin
                 case(addr_in[15:0])
-
-                     	 // Reading the config register
+                     	// Reading the config register
                         16'hF000: begin 
                                 data_out <= config_reg;
                         end
@@ -86,7 +86,7 @@ always_ff @(posedge clk) begin
         end
 end
 
-//add or subtract
+// add or subtract
 always_ff @(posedge clk) begin
 	if(config_reg[31] == 1)
 		if(config_reg[30] == 1)
@@ -99,9 +99,15 @@ always_ff @(posedge clk) begin
 
         // Store the high and low registers into the counter
 	if(load_triggered) begin
-                counter[63:32] <= hi_reg;
-		counter[31:0] <= lo_reg;
+                counter[63:32] <= loadhi_reg;
+		counter[31:0] <= loadlo_reg;
+                update_triggered <= 1'b1;
 	end
+        
+        if(update_triggered) begin
+                hi_reg <= counter[63:32];
+                lo_reg <= counter[31:0];
+        end
 end
 
 endmodule
