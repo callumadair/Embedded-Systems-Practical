@@ -26,12 +26,13 @@ logic [31:0] hi_reg;
 logic [31:0] loadlo_reg;
 logic [31:0] loadhi_reg;
 
+// Signals
 logic load_triggered;
 logic update_triggered;
 
 logic [63:0] counter;
 
-// write interface logic
+// Write interface logic
 always_ff @(posedge clk) begin
 
         // default
@@ -39,7 +40,7 @@ always_ff @(posedge clk) begin
         update_triggered <= 1'b0;
 
         if ((addr_in[31:16] == 16'h3FF5) & wr_in) begin
-                case(addr_in[15:0])
+                case (addr_in[15:0])
                         // config register write
                         16'hF000: config_reg <= data_in;
 
@@ -76,12 +77,12 @@ always_ff @(posedge clk) begin
 end
 
 
-// read interface logic
+// Read interface logic
 always_ff @(posedge clk) begin
         rd_valid_out <= rd_in;
 
         if ((addr_in[31:16] == 16'h3FF5) & rd_in) begin
-                case(addr_in[15:0])
+                case (addr_in[15:0])
                      	// Reading the config register
                         16'hF000: begin 
                                 data_out <= config_reg;
@@ -94,29 +95,30 @@ always_ff @(posedge clk) begin
                 endcase
         end
 
-        if(rst) begin
+        if (rst) begin
                 data_out <=32'd0;
                 rd_valid_out <= 1'b0;
         end
 end
 
-// add or subtract
+// Add or subtract
 always_ff @(posedge clk) begin
-	if(config_reg[31] == 1) begin
-		if(config_reg[30] == 1) begin
+	if (config_reg[31] == 1) begin
+		if (config_reg[30] == 1) begin
 			counter <= counter + 64'd1;
-		end else if(config_reg[30] == 0) begin
+		end else if (config_reg[30] == 0) begin
 			counter <= counter - 64'd1;
 		end	
 	end
 
         // Store the high and low registers into the counter
-	if(load_triggered) begin
+	if (load_triggered) begin
                 counter[63:32] <= loadhi_reg;
 		counter[31:0] <= loadlo_reg;
 	end
         
-        if(update_triggered) begin
+        // Store the value of the counter into the lo and hi registers
+        if (update_triggered) begin
                 hi_reg <= counter[63:32];
                 lo_reg <= counter[31:0];
         end
