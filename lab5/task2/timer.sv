@@ -28,6 +28,8 @@ logic [31:0] loadhi_reg;
 
 logic load_triggered;
 
+logic [63:0] counter;
+
 // write interface logic
 always_ff @(posedge clk) begin
 
@@ -88,12 +90,17 @@ end
 always_ff @(posedge clk) begin
 	if(config_reg[31] == 1)
 		if(config_reg[30] == 1)
-			data_out += 1;
+			counter <= counter + 64'd1;
 		end	
 		else if(config_reg[30] == 0)
-			data_out -= 1;
+			counter <= counter - 64'd1;
 		end	
 	end
+
+	if(load_triggered) begin
+		counter <= lo_reg
+	end
+
 end
 
 endmodule
