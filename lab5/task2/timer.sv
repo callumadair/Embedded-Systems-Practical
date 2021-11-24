@@ -48,12 +48,26 @@ always_ff @(posedge clk) begin
                                 load_triggered <= 1'b1;               
                         end
 
+			// Trigger an update
+			16'hF00C: begin
+				update_triggered <= 1'b1;
+			end
+			
+			16'hF018: begin
+                             loadlo_reg <= data_in;
+			end
+
+			16'hF01C: begin
+                             loadhi_reg <= data_in;
+			end
+			
                         // default -- do nothing
                         default: begin
 
                         end
                 endcase
         end
+
 
         if (rst) begin
                 config_reg <= 32'd0;
@@ -88,11 +102,10 @@ end
 
 // add or subtract
 always_ff @(posedge clk) begin
-	if(config_reg[31] == 1)
-		if(config_reg[30] == 1)
+	if(config_reg[31] == 1) begin
+		if(config_reg[30] == 1) begin
 			counter <= counter + 64'd1;
-		end	
-		else if(config_reg[30] == 0)
+		end else if(config_reg[30] == 0) begin
 			counter <= counter - 64'd1;
 		end	
 	end
@@ -101,7 +114,6 @@ always_ff @(posedge clk) begin
 	if(load_triggered) begin
                 counter[63:32] <= loadhi_reg;
 		counter[31:0] <= loadlo_reg;
-                update_triggered <= 1'b1;
 	end
         
         if(update_triggered) begin
