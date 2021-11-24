@@ -97,10 +97,11 @@ always_ff @(posedge clk) begin
 		end	
 	end
 
+        // Store the high and low registers into the counter
 	if(load_triggered) begin
-		counter <= lo_reg
+                counter[63:32] <= hi_reg;
+		counter[31:0] <= lo_reg;
 	end
-
 end
 
 endmodule
