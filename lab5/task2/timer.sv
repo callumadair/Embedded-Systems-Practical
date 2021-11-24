@@ -87,7 +87,6 @@ always_ff @(posedge clk) begin
                                 data_out <= config_reg;
                         end
 
-<<<<<<< HEAD
 			16'hF004: begin
 				data_out <= lo_reg;
 			end
@@ -95,16 +94,6 @@ always_ff @(posedge clk) begin
 			16'hF008: begin
 			       data_out <= hi_reg;
 		       	end	       
-
-=======
-                        16'hF004: begin
-                                data_out <= lo_reg;
-                        end
-
-                        16'hF008: begin
-                                data_out <= hi_reg;
-                        end
->>>>>>> 313a68d5c907dcc98fab023fc64987dbecf220f5
 
                         // default -- do nothing
                         default: begin
@@ -121,7 +110,7 @@ end
 
 // Add or subtract
 always_ff @(posedge clk) begin
-	if (config_reg[31] == 1) begin
+	if (config_reg[31] == 1) beginwere rejected because the tip 
 		if (config_reg[30] == 1) begin
 			counter <= counter + 64'd1;
 		end else if (config_reg[30] == 0) begin
