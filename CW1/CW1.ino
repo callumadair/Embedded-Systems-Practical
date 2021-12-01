@@ -1,6 +1,6 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
-#include <dotDevice.h>
+#include "dotDevice.h"
 
 OneWire oneWire(26);
 DallasTemperature sensors(&oneWire);
@@ -29,7 +29,6 @@ void loop() {
   temp_in_c = sensors.getTempCByIndex(0);
   Serial.println(temp_in_c);
 
-}
  json_str = "{
     \"device\" : \""+String(gid)+"\",
     "average": 19.4,
@@ -51,8 +50,11 @@ void loop() {
        {"timestamp" : 2434, "value": 19.4},
        {"timestamp" : 2534, "value": 19.2}
     ] 
-  }"
+  }";
 
    server_con.sendJSON(json_str); // where json_str is a String containing the command payload
   
+
+}
+
   
