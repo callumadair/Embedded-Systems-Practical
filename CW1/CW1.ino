@@ -7,7 +7,7 @@ DallasTemperature sensors(&oneWire);
 
 const char* ssid = "Galaxy S10+00ef";
 const char* password = "ConnorH01";
-const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
+const char* server = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
 
