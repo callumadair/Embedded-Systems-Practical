@@ -25,19 +25,23 @@ void setup() {
 
 String getTemperaturesJson(){
   float temps[16];
+  unsigned long timestamps[16];
+  //initial time = 0
+  unsigned long start = millis();
   String temp_json = "{ \"device\" : \""+String(gid)+"\", \"average\" : ";
   float sum = 0;
   
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
     temps[i] = sensors.getTempCByIndex(0);
+    timestamps[i] = millis() - start;
     sum += temps[i];
   }
   float average = sum / 16;
   temp_json += " \""+String(average)+"\",  \"values\" : [ ";
 
   for(int j = 0; j < 16; ++j) {
-    temp_json += "{\"timestamp\" : 100, \"value\" : \""+ String(temps[j])+"\" },";
+    temp_json += "{\"timestamp\" : \""+ String(timestamps[j])+"\" , \"value\" : \""+ String(temps[j])+"\" },";
   }
   temp_json += " ] }";
   return temp_json;
