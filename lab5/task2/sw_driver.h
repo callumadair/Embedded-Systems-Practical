@@ -27,16 +27,24 @@ const uint32_t timg0_t0load_reg = 0x3FF5F020;
 // ------ IMPLEMENT THE FOLLOWING ----------------
 void setupTimer(uint16_t divval) {
     // Implement the timerSetup function using regWrite 
-    regWrite(timg0_t0config_reg, 31)
+    regWrite(timg0_t0config_reg, regRead(31) | (1 << 31));
+    
+    regWrite(timg0_t0config_reg, regRead(30) | (1 << 30));
+
+    regWrite(timg0_t0config_reg, regRead(13) | (divval << 13));
 }
 
 void resetTimer() {
     // Implement the resetTimer function using regWrite
+    regWrite(timg0_t0config_reg, regRead(31) | (0 << 31));
+    regWrite(timg0_t0load_reg, regRead(0) | (0 << 0));
 }
 
 uint64_t readTimer() {
     uint64_t t;
     // using readReg and regWrite implement the function to read the data from the hardware
+    regWrite(timg0_t0update_reg, regRead(1) | (0 << 1));
+    t = regRead((regRead(timg0_t0load_hi_reg) << 32) | regRead(timg0_t0lo_reg));
     return t;
 }
 // --------------- DONE -------------------------
