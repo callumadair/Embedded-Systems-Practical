@@ -1,6 +1,6 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
-#include "dotDevice.h"
+#include <dotDevice.h>
 
 OneWire oneWire(26);
 DallasTemperature sensors(&oneWire);
@@ -20,7 +20,7 @@ String json_str;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  
+  ddev.connect()
 }
 
 void loop() {
