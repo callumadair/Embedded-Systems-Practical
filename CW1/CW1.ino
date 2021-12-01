@@ -31,6 +31,7 @@ String getTemperaturesJson(){
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
     temps[i] = sensors.getTempCByIndex(0);
+    Serial.println(temps[i]);
     sum += temps[i];
   }
   float average = sum / 16;
