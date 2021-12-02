@@ -33,11 +33,9 @@ String getTemperaturesJson(){
   
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
-    //temps[i] = sensors.getTempCByIndex(0);
-    temps[i] = 20;
+    temps[i] = sensors.getTempCByIndex(0);
     Serial.println(temps[i]);
-    //timestamps[i] = millis() - start;
-    timestamps[i] = 1000;
+    timestamps[i] = millis() - start;
     Serial.println(timestamps[i]);
     sum += temps[i];
   }
@@ -56,7 +54,7 @@ String getTemperaturesJson(){
 void loop() {
   // put your main code here, to run repeatedly:
 
- //json_str = "{ \"device\" : \""+String(gid)+"\", \"average\": 19.4, \"values\" : [ {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4} ]}";
+   //json_str = "{ \"device\" : \""+String(gid)+"\", \"average\": 19.4, \"values\" : [ {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4} ]}";
    server_con.sendJSON(getTemperaturesJson());
    //server_con.sendJSON(json_str); // where json_str is a String containing the command payload
 }
