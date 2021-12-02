@@ -28,16 +28,14 @@ String getTemperaturesJson(){
   unsigned long timestamps[16];
   //initial time = 0
   unsigned long start = millis();
-  String temp_json = "{ \"device\" : \"+String(gid)+\", \"average\" : ";
+  String temp_json = "{ \"device\" : \""+String(gid)+"\", \"average\" : ";
   float sum = 0;
   
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
-    //temps[i] = sensors.getTempCByIndex(0);
-    temps[i] = 20;
+    temps[i] = sensors.getTempCByIndex(0);
     Serial.println(temps[i]);
-    //timestamps[i] = millis() - start;
-    timestamps[i] = 1000;
+    timestamps[i] = millis() - start;
     Serial.println(timestamps[i]);
     sum += temps[i];
   }
