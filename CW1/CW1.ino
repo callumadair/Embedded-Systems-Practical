@@ -54,9 +54,8 @@ String getTemperaturesJson(){
 
 void loop() {
   // put your main code here, to run repeatedly:
-
-   json_str = "{ \"device\": \""+String(gid)+"\", \"average\": 19.4, \"values\": [ {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4}, {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4}, {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4}, {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4} ]}";
+   unsigned long start = millis();
    server_con.sendJSON(getTemperaturesJson());
-   //server_con.sendJSON(json_str); // where json_str is a String containing the command payload
-   delay(3000);
+   unsigned long end = millis();
+   delay(30000 - (end - start));
 }
