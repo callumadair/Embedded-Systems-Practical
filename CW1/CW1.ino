@@ -44,9 +44,9 @@ String getTemperaturesJson(){
 
   for(int j = 0; j < 15; ++j) {
     
-    temp_json += "{\"timestamp\" : "+String(timestamps[j])+", \"value\": "+String(temps[j])+" }, ";
+    temp_json += "{\"timestamp\" : "+String(timestamps[j])+", \"value\": "+String(temps[j])+"}, ";
   }
-  temp_json += "{\"timestamp\" : "+String(timestamps[15])+", \"value\": "+String(temps[15])+" ]}";
+  temp_json += "{\"timestamp\" : "+String(timestamps[15])+", \"value\": "+String(temps[15])+"} ]}";
   Serial.println(temp_json);
 
   return temp_json;
