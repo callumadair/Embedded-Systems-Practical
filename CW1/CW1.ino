@@ -28,7 +28,7 @@ String getTemperaturesJson(){
   unsigned long timestamps[16];
   //initial time = 0
   unsigned long start = millis();
-  String temp_json = "{ \"device\" : \"+String(gid)+\", \"average\" : ";
+  String temp_json = "{ \"device\" : \""+String(gid)+"\", \"average\" : ";
   float sum = 0;
   
   for(int i = 0; i < 16; ++i) {
@@ -44,7 +44,7 @@ String getTemperaturesJson(){
 
   for(int j = 0; j < 16; ++j) {
     //NEED TO CHANGE OUTPUT TO FLOAT INSTEAD OF STRING
-    temp_json += "{\"timestamp\" : \""+ String(timestamps[j])+"\" , \"value\" : \""+ String(temps[j])+"\" },";
+    temp_json += "{\"timestamp\" : \"+ String(timestamps[j])+\" , \"value\" : \""+ String(temps[j])+"\" },";
   }
   temp_json += " ] }";
   Serial.println(temp_json);
