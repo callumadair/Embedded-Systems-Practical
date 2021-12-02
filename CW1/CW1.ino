@@ -46,7 +46,7 @@ String getTemperaturesJson(){
     //NEED TO CHANGE OUTPUT TO FLOAT INSTEAD OF STRING
     temp_json += "{\"timestamp\" : "+ String(timestamps[j])+" , \"value\" : "+ String(temps[j])+" },";
   }
-  temp_json += "{\"timestamp\" : "+ String(timestamps[15] +", \"value\" : "+ String(temps[15]}+" ] }";
+  temp_json += "{\"timestamp\" : "+ String(timestamps[15]) +", \"value\" : "+ String(temps[15])+" ]}";
   Serial.println(temp_json);
   return temp_json;
 }
