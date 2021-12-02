@@ -28,7 +28,7 @@ String getTemperaturesJson(){
   unsigned long timestamps[16];
   //initial time = 0
   unsigned long start = millis();
-  String temp_json = "{ \"device\" : \""+String(gid)+"\", \"average\": ";
+  String temp_json = "{ \"device\" : \""+String(gid)+"\", \"average\" : ";
   float sum = 0;
   
   for(int i = 0; i < 16; ++i) {
