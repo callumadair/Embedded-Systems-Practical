@@ -40,13 +40,13 @@ String getTemperaturesJson(){
     sum += temps[i];
   }
   float average = sum / 16;
-  temp_json += " "+String(average)+",  \"values\" : [ ";
+  temp_json += ""+String(average)+", \"values\" :[";
 
   for(int j = 0; j < 15; ++j) {
-    //NEED TO CHANGE OUTPUT TO FLOAT INSTEAD OF STRING
-    temp_json += "{\"timestamp\" : "+ String(timestamps[j])+" , \"value\" : "+ String(temps[j])+" },";
+    
+    temp_json += "{\"timestamp\" : "+String(timestamps[j])+", \"value\" : "+String(temps[j])+" }, ";
   }
-  temp_json += "{\"timestamp\" : "+ String(timestamps[15]) +", \"value\" : "+ String(temps[15])+" ]}";
+  temp_json += "{\"timestamp\" : "+String(timestamps[15])+", \"value\" : "+String(temps[15])+" ]}";
   Serial.println(temp_json);
   return temp_json;
 }
@@ -56,5 +56,6 @@ void loop() {
 
    //json_str = "{ \"device\" : \""+String(gid)+"\", \"average\": 19.4, \"values\" : [ {\"timestamp\" : 1034, \"value\": 19.5}, {\"timestamp\" : 1134, \"value\": 19.4}, {\"timestamp\" : 1234, \"value\": 19.2}, {\"timestamp\" : 1334, \"value\": 19.4} ]}";
    server_con.sendJSON(getTemperaturesJson());
+   delay(30000);
    //server_con.sendJSON(json_str); // where json_str is a String containing the command payload
 }
