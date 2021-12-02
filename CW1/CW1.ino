@@ -40,11 +40,11 @@ String getTemperaturesJson(){
     sum += temps[i];
   }
   float average = sum / 16;
-  temp_json += " \""+String(average)+"\",  \"values\" : [ ";
+  temp_json += " "+String(average)+",  \"values\" : [ ";
 
   for(int j = 0; j < 16; ++j) {
     //NEED TO CHANGE OUTPUT TO FLOAT INSTEAD OF STRING
-    temp_json += "{\"timestamp\" : \"+ String(timestamps[j])+\" , \"value\" : \""+ String(temps[j])+"\" },";
+    temp_json += "{\"timestamp\" : "+ String(timestamps[j])+" , \"value\" : "+ String(temps[j])+" },";
   }
   temp_json += " ] }";
   Serial.println(temp_json);
