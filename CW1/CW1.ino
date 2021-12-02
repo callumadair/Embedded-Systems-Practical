@@ -29,8 +29,8 @@ String getTemperaturesJson(){
   //initial time = 0
   unsigned long start = millis();
   String temp_json = "{ \"device\": \""+String(gid)+"\", \"average\": ";
-  float sum = 0;
   
+  float sum = 0.0;
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
     temps[i] = sensors.getTempCByIndex(0);
@@ -48,6 +48,7 @@ String getTemperaturesJson(){
   }
   temp_json += "{\"timestamp\" : "+String(timestamps[15])+", \"value\" : "+String(temps[15])+" ]}";
   Serial.println(temp_json);
+
   return temp_json;
 }
 
