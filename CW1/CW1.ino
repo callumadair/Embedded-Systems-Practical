@@ -12,9 +12,7 @@ const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 dotDevice server_con(ssid, password, ws);
 
 const char* gid = "EEGhyIgq";
-
 float temp_in_c;
-
 String json_str;
 
 void setup() {
