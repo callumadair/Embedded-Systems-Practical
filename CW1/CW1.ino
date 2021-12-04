@@ -36,7 +36,7 @@ String getTemperaturesJson() {
     //temp = sensors.getTempCByIndex(0);
     
     //temporary temperature value because our sensor has a dodgy wire and I cba to hold it in place all the time.
-    temp = 25.46;
+    temp = 45.46;
     
     timestamp = millis() - start;
     if(i != 15) {
