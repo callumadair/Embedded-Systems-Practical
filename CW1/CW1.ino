@@ -3,7 +3,7 @@
 #include "dotDevice.h"
 
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  28 
+#define TIME_TO_SLEEP  29
 
 // Setup the DallasTemperature library
 OneWire oneWire(26);
@@ -63,8 +63,9 @@ void loop() {
 
    // Delay ~30s between each payload
    unsigned long end = millis();
-   delay(2000);
-   esp_deep_sleep_start();
+   delay(1000);
    esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+   esp_deep_sleep_start();
+   Serial.println("Awake");
    //delay(30000 - (end - start));
 }
