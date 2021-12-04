@@ -10,8 +10,8 @@ DallasTemperature sensors(&oneWire);
 
 // Configuration
 const char* gid = "EEGhyIgq";
-const char* ssid = "Try it!";
-const char* password = "N7z@5476";
+const char* ssid = "TinyPico";
+const char* password = "ConnorIsAwesome";
 const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
@@ -62,8 +62,8 @@ void loop() {
    unsigned long end = millis();
    
    // Delay and sleep ~30s between each payload
-   unsigned long sleep_time = 28000 - (end - start);
+   unsigned long sleep_time = 25000 - (end - start);
    esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
-   delay(2000);
+   delay(150);
    esp_deep_sleep_start();
 }
