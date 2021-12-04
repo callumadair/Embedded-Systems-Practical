@@ -8,6 +8,9 @@
 OneWire oneWire(26);
 DallasTemperature sensors(&oneWire);
 
+//setting the CPU frequency from 160hz to 80 (meant to increase power consumption by 20%!)
+setCpuFrequencyMhz(80);
+
 // Configuration
 const char* gid = "EEGhyIgq";
 const char* ssid = "TinyPico";
@@ -33,10 +36,7 @@ String getTemperaturesJson() {
   String vals_json = "\"values\": [ ";
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
-    //temp = sensors.getTempCByIndex(0);
-    
-    //temporary temperature value because our sensor has a dodgy wire and I cba to hold it in place all the time.
-    temp = 25.46;
+    temp = sensors.getTempCByIndex(0);
     
     timestamp = millis() - start;
     if(i != 15) {
