@@ -8,8 +8,8 @@ DallasTemperature sensors(&oneWire);
 
 // Configuration
 const char* gid = "EEGhyIgq";
-const char* ssid = "Galaxy S10+00ef";
-const char* password = "ConnorH01";
+const char* ssid = "Callum's iPhone";
+const char* password = "data parasite";
 const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
@@ -36,12 +36,12 @@ String getTemperaturesJson() {
   // Collect 16 temperature readings
   float sum = 0.0;
   String vals_json = "\"values\": [ ";
-  for(int i = 0; i < 15; ++i) {
+  for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
     temp = sensors.getTempCByIndex(0);
     timestamp = millis() - start;
     if(i != 15) {
-      vals_json += "{\"timestamp\" : "+String(timestamp)+", \"value\": "+String(temp)+"}, "
+      vals_json += "{\"timestamp\" : "+String(timestamp)+", \"value\": "+String(temp)+"}, ";
     } else {
       vals_json += "{\"timestamp\" : "+String(timestamp)+", \"value\": "+String(temp)+"} ]}";
     }
