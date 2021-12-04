@@ -55,53 +55,107 @@ const char* ssid = "Galaxy S10+00ef";
 const char* password = "ConnorH01";
 const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
+unsigned long sum;
+unsigned long average;
+
 dotDevice server_con(ssid, password, ws);
 
 void setup() {
   data_packet.cmd = 1; // Should always be "b0000000000000001"
+  data_packet.gid = ["E", "E", "G", "h", "y", "I", "g", "q"];
   strcpy(data_packet.gid, gid); 
   Serial.begin(115200);
   server_con.connect();
 }
 
 void collectTemperatures(struct data_packet_struct *pack) {
+  sum = 0;
+  average = 0;
   // log start time
   unsigned long start = millis();
-
   // collect 16 temperatures and their respective timestamps
   // &pack.ts0 = ...
+  sensors.requestTemperatures();
+  data_packet.ts0 = start + millis();
+  data_packet.val0 = sensors.getTempCByIndex(0);
+  sum += data_packet.val0
 
+  data_packet.ts1 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val1 = sensors.getTempCByIndex(0);
+  sum += data_packet.val1
+
+  data_packet.ts2 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val2 = sensors.getTempCByIndex(0);
+  sum += data_packet.val2
+
+  data_packet.ts3 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val3 = sensors.getTempCByIndex(0);
+  sum += data_packet.val3
+
+  data_packet.ts4 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val4 = sensors.getTempCByIndex(0);
+  sum += data_packet.val4
+
+  data_packet.ts5 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val5 = sensors.getTempCByIndex(0);
+  sum += data_packet.val5
+
+  data_packet.ts6 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val6 = sensors.getTempCByIndex(0);
+  sum += data_packet.val6
+
+  data_packet.ts7 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val7 = sensors.getTempCByIndex(0);
+  sum += data_packet.val7
+
+  data_packet.ts8 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val8 = sensors.getTempCByIndex(0);
+  sum += data_packet.val8
+
+  data_packet.ts9 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val9 = sensors.getTempCByIndex(0);
+  sum += data_packet.val9
+
+  data_packet.ts10 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val10 = sensors.getTempCByIndex(0);
+  sum += data_packet.val10
+
+  data_packet.ts11 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val11 = sensors.getTempCByIndex(0);
+  sum += data_packet.val11
+
+  data_packet.tS12 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val12 = sensors.getTempCByIndex(0);
+  sum += data_packet.val12
+
+  data_packet.ts13 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val13 = sensors.getTempCByIndex(0);
+  sum += data_packet.val13
+
+  data_packet.ts14 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val14 = sensors.getTempCByIndex(0);
+  sum += data_packet.val14
+
+  data_packet.ts15 = start + millis();
+  sensors.requestTemperatures();
+  data_packet.val15 = sensors.getTempCByIndex(0);
+  sum += data_packet.val15
   // calculate the sum, then divide by 16 for the mean average
-}
-
-String getTemperaturesJson() {
-  
-  float temps[16];
-  unsigned long timestamps[16];
-  unsigned long start = millis();
-
-  // Initialise the JSON payload
-  String temp_json = "{ \"device\": \""+String(gid)+"\", \"average\": ";
-
-  // Collect 16 temperature readings
-  float sum = 0.0;
-  for(int i = 0; i < 16; ++i) {
-    sensors.requestTemperatures();
-    temps[i] = sensors.getTempCByIndex(0);
-    timestamps[i] = millis() - start;
-    sum += temps[i];
-  }
-  
-  // Calculate average temperature and finish JSON payload construction
-  float average = sum / 16;
-  temp_json += ""+String(average)+", \"values\": [ ";
-  for(int j = 0; j < 15; ++j) {
-    temp_json += "{\"timestamp\" : "+String(timestamps[j])+", \"value\": "+String(temps[j])+"}, ";
-  }
-  temp_json += "{\"timestamp\" : "+String(timestamps[15])+", \"value\": "+String(temps[15])+"} ]}";
-  
-  Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
-  return temp_json;
+  average = sum/16;
 }
 
 void loop() {
