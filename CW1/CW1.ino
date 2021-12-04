@@ -22,6 +22,7 @@ String json_str;
 
 void setup() {
   Serial.begin(115200);
+  //lowering frequency from default to 80hz
   setCpuFrequencyMhz(80);
   server_con.connect();
 }
@@ -36,10 +37,7 @@ String getTemperaturesJson() {
   String vals_json = "\"values\": [ ";
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
-    //temp = sensors.getTempCByIndex(0);
-    
-    //temporary temperature value because our sensor has a dodgy wire and I cba to hold it in place all the time.
-    temp = 45.46;
+    temp = sensors.getTempCByIndex(0);
     
     timestamp = millis() - start;
     if(i != 15) {
