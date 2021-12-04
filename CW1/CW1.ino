@@ -47,10 +47,11 @@ String getTemperaturesJson() {
     }
     sum += temp;
   }
-  
+  Serial.println(vals_json);
   // Calculate average temperature and finish JSON payload construction
   float average = sum / 16;
   temp_json += ""+String(average)+", ";
+  Serial.println(temp_json);
   temp_json += vals_json;
   
   Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
