@@ -1,7 +1,9 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
 #include "dotDevice.h"
-
+#include "driver/adc.h"
+#include "esp_wifi.h"
+#include "esp_bt.h"
 #define MILLI_TO_SECONDS 1000  /* Conversion factor for milli seconds to seconds */
 
 // Setup the DallasTemperature library
@@ -57,6 +59,20 @@ String getTemperaturesJson() {
   return temp_json;
 }
 
+void deep_sleep(unsigned long sleep_time) {
+  delay(150);
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
+  btStop();
+
+  adc_power_off();
+  esp_wifi_stop();
+  esp_bt_controller_disable();
+
+  esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
+  esp_deep_sleep_start();
+}
+
 void loop() {
    unsigned long start = millis();
    server_con.sendJSON(getTemperaturesJson());
@@ -64,7 +80,8 @@ void loop() {
    
    // Delay and sleep ~30s between each payload
    unsigned long sleep_time = 25000 - (end - start);
-   esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
-   delay(150);
-   esp_deep_sleep_start();
+   deep_sleep(sleep_time);
+   //esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
+   //delay(150);
+   //esp_deep_sleep_start();
 }
