@@ -2,8 +2,8 @@
 #include "DallasTemperature.h"
 #include "dotDevice.h"
 
-#define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  29
+#define MILLI_TO_SECONDS 1000  /* Conversion factor for milli seconds to seconds */
+#define SLEEP_TIME  28
 
 // Setup the DallasTemperature library
 OneWire oneWire(26);
@@ -28,10 +28,7 @@ String getTemperaturesJson() {
   float temp;
   unsigned long timestamp;
   unsigned long start = millis();
-
-  // Initialise the JSON payload
-  String temp_json = "{ \"device\": \""+String(gid)+"\", \"average\": ";
-
+  
   // Collect 16 temperature readings
   float sum = 0.0;
   String vals_json = "\"values\": [ ";
@@ -48,9 +45,10 @@ String getTemperaturesJson() {
     }
     sum += temp;
   }
+  
   // Calculate average temperature and finish JSON payload construction
   float average = sum / 16;
-  temp_json += ""+String(average)+", ";
+  String temp_json = "{ \"device\": \""+String(gid)+"\", \"average\": "+String(average)+", ";
   temp_json += vals_json;
   
   Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
@@ -60,12 +58,11 @@ String getTemperaturesJson() {
 void loop() {
    unsigned long start = millis();
    server_con.sendJSON(getTemperaturesJson());
-
-   // Delay ~30s between each payload
    unsigned long end = millis();
-   delay(1000);
-   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+   
+   // Delay and sleep ~30s between each payload
+   unsigned long sleep_time = 28000 - (end - start);
+   esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
+   delay(2000);
    esp_deep_sleep_start();
-   Serial.println("Awake");
-   //delay(30000 - (end - start));
 }
