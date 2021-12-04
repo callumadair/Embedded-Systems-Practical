@@ -3,7 +3,6 @@
 #include "dotDevice.h"
 
 #define MILLI_TO_SECONDS 1000  /* Conversion factor for milli seconds to seconds */
-#define SLEEP_TIME  28
 
 // Setup the DallasTemperature library
 OneWire oneWire(26);
@@ -35,8 +34,10 @@ String getTemperaturesJson() {
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
     //temp = sensors.getTempCByIndex(0);
+    
     //temporary temperature value because our sensor has a dodgy wire and I cba to hold it in place all the time.
     temp = 25.46;
+    
     timestamp = millis() - start;
     if(i != 15) {
       vals_json += "{\"timestamp\" : "+String(timestamp)+", \"value\": "+String(temp)+"}, ";
