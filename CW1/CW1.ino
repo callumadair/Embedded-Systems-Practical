@@ -8,8 +8,8 @@ DallasTemperature sensors(&oneWire);
 
 // Configuration
 const char* gid = "EEGhyIgq";
-const char* ssid = "Callum's iPhone";
-const char* password = "data parasite";
+const char* ssid = "Galaxy S10+00ef";
+const char* password = "ConnorH01";
 const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
@@ -23,9 +23,6 @@ void setup() {
 }
 
 String getTemperaturesJson() {
-  
-  float temps[16];
-  unsigned long timestamps[16];
   float temp;
   unsigned long timestamp;
   unsigned long start = millis();
@@ -51,7 +48,6 @@ String getTemperaturesJson() {
   // Calculate average temperature and finish JSON payload construction
   float average = sum / 16;
   temp_json += ""+String(average)+", ";
-  Serial.println(temp_json);
   temp_json += vals_json;
   
   Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
