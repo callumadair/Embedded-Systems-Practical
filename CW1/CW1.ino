@@ -26,6 +26,8 @@ String getTemperaturesJson() {
   
   float temps[16];
   unsigned long timestamps[16];
+  float temp;
+  unsigned long timestamp;
   unsigned long start = millis();
 
   // Initialise the JSON payload
@@ -33,20 +35,23 @@ String getTemperaturesJson() {
 
   // Collect 16 temperature readings
   float sum = 0.0;
-  for(int i = 0; i < 16; ++i) {
+  String vals_json = "\"values\": [ ";
+  for(int i = 0; i < 15; ++i) {
     sensors.requestTemperatures();
-    temps[i] = sensors.getTempCByIndex(0);
-    timestamps[i] = millis() - start;
-    sum += temps[i];
+    temp = sensors.getTempCByIndex(0);
+    timestamp = millis() - start;
+    if(i != 15) {
+      vals_json += "{\"timestamp\" : "+String(timestamp)+", \"value\": "+String(temp)+"}, "
+    } else {
+      vals_json += "{\"timestamp\" : "+String(timestamp)+", \"value\": "+String(temp)+"} ]}";
+    }
+    sum += temp;
   }
   
   // Calculate average temperature and finish JSON payload construction
   float average = sum / 16;
-  temp_json += ""+String(average)+", \"values\": [ ";
-  for(int j = 0; j < 15; ++j) {
-    temp_json += "{\"timestamp\" : "+String(timestamps[j])+", \"value\": "+String(temps[j])+"}, ";
-  }
-  temp_json += "{\"timestamp\" : "+String(timestamps[15])+", \"value\": "+String(temps[15])+"} ]}";
+  temp_json += ""+String(average)+", ";
+  temp_json += vals_json;
   
   Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
   return temp_json;
