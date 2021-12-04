@@ -8,6 +8,9 @@
 OneWire oneWire(26);
 DallasTemperature sensors(&oneWire);
 
+//setting the CPU frequency from 160hz to 80 (meant to increase power consumption by 20%!)
+setCpuFrequencyMhz(80);
+
 // Configuration
 const char* gid = "EEGhyIgq";
 const char* ssid = "TinyPico";
