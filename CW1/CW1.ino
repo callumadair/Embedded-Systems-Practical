@@ -36,10 +36,7 @@ String getTemperaturesJson() {
   String vals_json = "\"values\": [ ";
   for(int i = 0; i < 16; ++i) {
     sensors.requestTemperatures();
-    //temp = sensors.getTempCByIndex(0);
-    
-    //temporary temperature value because our sensor has a dodgy wire and I cba to hold it in place all the time.
-    temp = 45.46;
+    temp = sensors.getTempCByIndex(0);
     
     timestamp = millis() - start;
     if(i != 15) {
@@ -81,7 +78,4 @@ void loop() {
    // Delay and sleep ~30s between each payload
    unsigned long sleep_time = 25000 - (end - start);
    deep_sleep(sleep_time);
-   //esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
-   //delay(150);
-   //esp_deep_sleep_start();
 }
