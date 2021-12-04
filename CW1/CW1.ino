@@ -16,6 +16,36 @@ struct data_packet_struct
   // timestampX (2) valueX (2) (from 0 to 15) 11-75
   uint16_t ts0;
   uint16_t val0;
+  uint16_t ts1;
+  uint16_t val1;
+  uint16_t ts2;
+  uint16_t val2;
+  uint16_t ts3;
+  uint16_t val3;
+  uint16_t ts4;
+  uint16_t val4;
+  uint16_t ts5;
+  uint16_t val5;
+  uint16_t ts6;
+  uint16_t val6;
+  uint16_t ts7;
+  uint16_t val7;
+  uint16_t ts8;
+  uint16_t val8;
+  uint16_t ts9;
+  uint16_t val9;
+  uint16_t ts10;
+  uint16_t val10;
+  uint16_t ts11;
+  uint16_t val11;
+  uint16_t ts12;
+  uint16_t val12;
+  uint16_t ts13;
+  uint16_t val13;
+  uint16_t ts14;
+  uint16_t val14;
+  uint16_t ts15;
+  uint16_t val15;
 } data_packet;
 #pragma pop(1)
 
@@ -27,12 +57,21 @@ const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
 
-float temp_in_c;
-String json_str;
-
 void setup() {
+  data_packet.cmd = 1; // Should always be "b0000000000000001"
+  strcpy(data_packet.gid, gid); 
   Serial.begin(115200);
   server_con.connect();
+}
+
+void collectTemperatures(struct data_packet_struct *pack) {
+  // log start time
+  unsigned long start = millis();
+
+  // collect 16 temperatures and their respective timestamps
+  // &pack.ts0 = ...
+
+  // calculate the sum, then divide by 16 for the mean average
 }
 
 String getTemperaturesJson() {
@@ -67,6 +106,7 @@ String getTemperaturesJson() {
 
 void loop() {
    unsigned long start = millis();
+   collectTemperatures(&data_packet);
    server_con.sendBIN((char *)&data_packet, sizeof(data_packet));
 
    // Delay ~30s between each payload
