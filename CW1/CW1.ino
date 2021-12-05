@@ -29,6 +29,7 @@ void setup() {
   btStop();
   esp_bt_controller_disable();
 
+  sensors.setResolution(9);
 }
 
 String getTemperaturesJson() {
