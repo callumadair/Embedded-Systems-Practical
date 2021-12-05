@@ -19,8 +19,8 @@ struct data_packet_struct
 
 // Configuration
 const char* gid = "EEGhyIgq";
-const char* ssid = "Galaxy S10+00ef";
-const char* password = "ConnorH01";
+const char* ssid = "Try it!";
+const char* password = "N7z@5476";
 const char* ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
@@ -33,6 +33,10 @@ void setup() {
     server_con.connect();
 }
 
+uint16_t floatToFixed(float input) {
+  return (uint16_t)(input * (1 << 8));
+}
+
 void collectTemperatures(struct data_packet_struct *packet) {
     // Collect 16 temperatures and their respective timestamps
     unsigned long start = millis();
@@ -40,18 +44,20 @@ void collectTemperatures(struct data_packet_struct *packet) {
     for (int i = 0; i < 32; i + 2) {
         sensors.requestTemperatures();
         packet->data[i] = start + millis();
-        packet->data[i + 1] = sensors.getTempCByIndex(0);
+        packet->data[i + 1] = floatToFixed(sensors.getTempCByIndex(0));
         sum += packet->data[i + 1];
     };
 
     // Calculate the mean average of the temperatures
-    packet->average = sum / 16;
+    packet->average = floatToFixed(sum / 16);
 }
 
 void loop() {
     unsigned long start = millis();
     collectTemperatures(&data_packet);
     server_con.sendBIN((char *)&data_packet, sizeof(data_packet));
+
+    Serial.print(String(data_packet.average);
 
     // Delay ~30s between each payload
     unsigned long end = millis();
