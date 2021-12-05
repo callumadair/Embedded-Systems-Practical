@@ -24,6 +24,7 @@ void setup() {
   Serial.begin(115200);
   setCpuFrequencyMhz(80);
   server_con.connect();
+  sensors.setResolution(9);
 }
 
 String getTemperaturesJson() {
