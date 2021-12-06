@@ -52,12 +52,15 @@ String getTemperaturesJson() {
 
     Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
 
+    WiFi.mode(WIFI_ON);
     server_con.connect();
     return temp_json;
 }
 
 void loop() {
     unsigned long start = millis();
+    WiFi.mode(WIFI_OFF);
+    esp_bt_controller_disable();
     server_con.sendJSON(getTemperaturesJson());
     unsigned long end = millis();
 
