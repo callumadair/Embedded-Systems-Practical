@@ -1,7 +1,6 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
 #include "dotDevice.h"
-#include "esp_wifi.h"
 #include "esp_bt.h"
 
 #define MILLI_TO_SECONDS 1000  /* Conversion factor for milli seconds to seconds */
@@ -12,8 +11,8 @@ DallasTemperature sensors(&oneWire);
 
 // Configuration
 const char *gid = "EEGhyIgq";
-const char *ssid = "TinyPico";
-const char *password = "ConnorIsAwesome";
+const char *ssid = "Try it!";
+const char *password = "N7z@5476";
 const char *ws = "ws://ec2-52-15-138-171.us-east-2.compute.amazonaws.com:1234";
 
 dotDevice server_con(ssid, password, ws);
@@ -54,20 +53,18 @@ String getTemperaturesJson() {
 
     Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
 
-    WiFi.mode(WIFI_ON);
     server_con.connect();
     return temp_json;
 }
 
 void loop() {
     unsigned long start = millis();
-    WiFi.mode(WIFI_OFF);
     esp_bt_controller_disable();
     server_con.sendJSON(getTemperaturesJson());
     unsigned long end = millis();
 
     // Delay and sleep ~30s between each payload
-    unsigned long sleep_time = 25000 - (end - start);
+    unsigned long sleep_time = 28000 - (end - start);
     delay(150);
     esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
     esp_deep_sleep_start();
