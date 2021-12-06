@@ -49,12 +49,15 @@ String getTemperaturesJson() {
     String temp_json = "{ \"device\": \"" + String(gid) + "\", \"average\": " + String(average) + ", ";
     temp_json += vals_json;
 
+    WiFi.mode(WIFI_ON);
     server_con.connect();
     return temp_json;
 }
 
 void loop() {
     unsigned long start = millis();
+    WiFi.mode(WIFI_OFF);
+    esp_bt_controller_disable();
     server_con.sendJSON(getTemperaturesJson());
     unsigned long end = millis();
 
