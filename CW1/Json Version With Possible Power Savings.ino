@@ -1,7 +1,6 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
 #include "dotDevice.h"
-#include "esp_wifi.h"
 #include "esp_bt.h"
 
 #define MILLI_TO_SECONDS 1000  /* Conversion factor for milli seconds to seconds */
@@ -51,14 +50,12 @@ String getTemperaturesJson() {
     String temp_json = "{ \"device\": \"" + String(gid) + "\", \"average\": " + String(average) + ", ";
     temp_json += vals_json;
 
-    WiFi.mode(WIFI_ON);
     server_con.connect();
     return temp_json;
 }
 
 void loop() {
     unsigned long start = millis();
-    WiFi.mode(WIFI_OFF);
     esp_bt_controller_disable();
     server_con.sendJSON(getTemperaturesJson());
     unsigned long end = millis();
