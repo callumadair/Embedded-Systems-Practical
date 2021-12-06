@@ -22,7 +22,6 @@ dotDevice server_con(ssid, password, ws);
 String json_str;
 
 void setup() {
-    Serial.begin(115200);
     setCpuFrequencyMhz(80);
     sensors.setResolution(9);
 }
@@ -52,8 +51,6 @@ String getTemperaturesJson() {
     float average = sum / 16;
     String temp_json = "{ \"device\": \"" + String(gid) + "\", \"average\": " + String(average) + ", ";
     temp_json += vals_json;
-
-    Serial.println(temp_json); // FIXME: DEBUG PURPOSES ONLY
 
     server_con.connect();
     return temp_json;
