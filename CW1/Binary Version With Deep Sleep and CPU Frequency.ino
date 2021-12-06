@@ -62,7 +62,7 @@ void loop() {
 
     // Delay ~30s between each payload
     unsigned long end = millis();
-    unsigned long sleep_time = 30000 - (end - start);
+    unsigned long sleep_time = 29000 - (end - start);
     delay(150);
     esp_sleep_enable_timer_wakeup(sleep_time * MILLI_TO_SECONDS);
     esp_deep_sleep_start();
