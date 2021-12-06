@@ -1,6 +1,8 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
 #include "dotDevice.h"
+#include "esp_wifi.h"
+#include "esp_bt.h"
 
 #define MILLI_TO_SECONDS 1000  /* Conversion factor for milli seconds to seconds */
 
