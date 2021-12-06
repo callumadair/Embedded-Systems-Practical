@@ -61,7 +61,6 @@ String getTemperaturesJson() {
 
 void loop() {
     unsigned long start = millis();
-
     server_con.sendJSON(getTemperaturesJson());
     unsigned long end = millis();
 
